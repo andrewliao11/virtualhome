@@ -121,7 +121,7 @@ class UnityCommunication(object):
         :param file_name_prefix: prefix of created files
         :param frame_rate: frame rate
         :param capture_screenshot: save screenshots
-        :param image_synthesis: save depth, segmentation, flow images
+        :param image_synthesis: save RGB (normal), segmentation (seg_class), instance segmentation (seg_inst), flow (flow) images
         :param save_pose_data: save pose data
         :param save_scene_states: save scene states
         :param character_resource: path to character resource to be used
