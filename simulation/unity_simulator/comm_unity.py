@@ -141,12 +141,13 @@ class UnityCommunication(object):
                   'image_width': image_width, 'image_height': image_height}
         response = self.post_command({'id': str(time.time()), 'action': 'render_script',
                                       'stringParams': [json.dumps(params)] + script})
+                                      
         if response['success']:
             if gen_vid and len(image_synthesis) > 0:
-                generate_video(image_synthesis, output_folder, file_name_prefix, frame_rate)
+                generate_video(image_synthesis, output_folder, file_name_prefix, frame_rate, capture_screenshot)
         return response['success'], response['message']
 
-def generate_video(image_syn, output_folder, prefix, frame_rate):
+def generate_video(image_syn, output_folder, prefix, frame_rate, capture_screenshot):
     import os
     import subprocess
     
@@ -159,8 +160,9 @@ def generate_video(image_syn, output_folder, prefix, frame_rate):
                          '-framerate', str(frame_rate),
                          '-pix_fmt', 'yuv420p',
                          '{}/Action_{}.mp4'.format(vid_folder, vid_mod)])
-        files_delete = glob.glob('{}/Action_*_{}.png'.format(vid_folder, vid_mod))
-        for ft in files_delete: os.remove(ft)
+        if not capture_screenshot:
+            files_delete = glob.glob('{}/Action_*_{}.png'.format(vid_folder, vid_mod))
+            for ft in files_delete: os.remove(ft)
         
 def _decode_image(img_string):
     img_bytes = base64.b64decode(img_string)
