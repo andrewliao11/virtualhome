@@ -106,7 +106,7 @@ class UnityCommunication(object):
         return response['success'], json.loads(response['message'])
 
     def render_script(self, script, randomize_execution=False, random_seed=-1, processing_time_limit=10,
-                      skip_execution=False, find_solution=True, output_folder='Output/', file_name_prefix="script",
+                      skip_execution=False, find_solution=True, output_folder='output/', file_name_prefix="script",
                       frame_rate=5, image_synthesis=['normal'], capture_screenshot=False, save_pose_data=False,
                       image_width=640, image_height=480, gen_vid=True,
                       save_scene_states=False, character_resource='Chars/Male1', camera_mode='AUTO'):
@@ -151,7 +151,7 @@ def generate_video(image_syn, output_folder, prefix, frame_rate):
     import subprocess
     
     curr_folder = os.path.dirname(os.path.realpath(__file__))
-    vid_folder = '{}/../{}/{}/'.format(curr_folder, output_folder, prefix)
+    vid_folder = os.path.join(curr_folder, output_folder, prefix)
     
     for vid_mod in image_syn:
         subprocess.call(['ffmpeg', '-i',
