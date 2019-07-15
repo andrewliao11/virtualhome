@@ -8,5 +8,8 @@ comm = UnityCommunication()
 print('Starting scene...')
 comm.reset()
 print('Generating video...')
-comm.render_script(script, capture_screenshot=False)
-print('Generated, find video in simulation/unity_simulator/output/')
+success, message = comm.render_script(script, capture_screenshot=False)
+if success:
+    print('Generated, find video in simulation/unity_simulator/output/')
+else:
+    print('Cannot generate this video.', message)
